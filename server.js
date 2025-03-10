@@ -86,4 +86,3 @@ const port = process.env.PORT || defaultPort; // Use Render's provided port or 3
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
-
