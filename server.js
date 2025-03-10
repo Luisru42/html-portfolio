@@ -18,7 +18,6 @@ const corsOptions = {
         }
     },
 };
-
 app.use(cors(corsOptions)); // Use CORS with defined options
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded data
 
@@ -33,7 +32,6 @@ app.post('/send-email', (req, res) => {
     }
 
     // Log form data for debugging
-    console.log(req.body);
     console.log("Received form data:", req.body);
 
     // Create a transporter using environment variables
@@ -52,23 +50,6 @@ app.post('/send-email', (req, res) => {
         subject: `Message from ${name}`,
         text: message,
     };
-    const cors = require('cors');
-
-    // Add your GitHub Pages URL to allowedOrigins
-    const allowedOrigins = ['https://luisru42.github.io'];
-
-    const corsOptions = {
-        origin: function (origin, callback) {
-            if (!origin || allowedOrigins.includes(origin)) {
-                callback(null, true);
-            } else {
-                callback(new Error('Not allowed by CORS'));
-            }
-        },
-    };
-
-    app.use(cors(corsOptions));
-
 
     // Send the email
     transporter.sendMail(mailOptions, (error, info) => {
@@ -87,4 +68,3 @@ const port = process.env.PORT || defaultPort; // Use the port provided by the ho
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
-
