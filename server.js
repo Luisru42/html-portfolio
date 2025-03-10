@@ -6,9 +6,12 @@ const cors = require('cors'); // For Cross-Origin Resource Sharing
 
 const app = express();
 const defaultPort = 3000;
+app.get('/', (req, res) => {
+    res.send('Welcome to my backend server!');
+});
 
-// Middleware to enable CORS with specific origin
-const allowedOrigins = ['https://luisru42.github.io/html-portfolio/']; // Add your GitHub Pages URL here
+
+const allowedOrigins = ['https://html-portfolio-1-2a6o.onrender.com']; // Remove trailing slash
 const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.includes(origin)) {
@@ -18,6 +21,7 @@ const corsOptions = {
         }
     },
 };
+
 app.use(cors(corsOptions)); // Use CORS with defined options
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded data
 
