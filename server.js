@@ -5,10 +5,10 @@ const nodemailer = require('nodemailer');
 const cors = require('cors'); // For Cross-Origin Resource Sharing
 
 const app = express();
-const port = 3000;
+const defaultPort = 3000;
 
 // Middleware to enable CORS with specific origin
-const allowedOrigins = ['https://luisru42.github.io']; // Add your GitHub Pages URL here
+const allowedOrigins = ['https://luisru42.github.io/html-portfolio/']; // Add your GitHub Pages URL here
 const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.includes(origin)) {
@@ -52,6 +52,23 @@ app.post('/send-email', (req, res) => {
         subject: `Message from ${name}`,
         text: message,
     };
+    const cors = require('cors');
+
+    // Add your GitHub Pages URL to allowedOrigins
+    const allowedOrigins = ['https://luisru42.github.io'];
+
+    const corsOptions = {
+        origin: function (origin, callback) {
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
+    };
+
+    app.use(cors(corsOptions));
+
 
     // Send the email
     transporter.sendMail(mailOptions, (error, info) => {
@@ -66,6 +83,8 @@ app.post('/send-email', (req, res) => {
 });
 
 // Start the server
+const port = process.env.PORT || defaultPort; // Use the port provided by the host
 app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+    console.log(`Server is running on port ${port}`);
 });
+
