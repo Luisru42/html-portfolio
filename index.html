@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Web Page</title>
+    <style>
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: black;
+            color: white;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        header {
+            background: rgb(33, 37, 41);
+            padding: 10px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+        }
+
+        #content {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        section {
+            padding: 20px;
+            text-align: center;
+            margin: 10px 0;
+            border-radius: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer {
+            background: rgb(33, 37, 41);
+            padding: 10px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Existing styles */
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: black;
+            color: white;
+        }
+
+        /* Reset default link styles */
+        a {
+            text-decoration: none;
+            /* Removes underlining */
+            color: inherit;
+            /* Inherit color from parent (optional) */
+        }
+
+        /* Custom styles for your Contact Me link */
+        #contactLink {
+            text-decoration: none;
+            /* No underline */
+            color: rgb(120, 250, 211);
+            /* Default color */
+            font-weight: bold;
+            /* Bold text */
+            padding: 10px 15px;
+            /* Adds padding around the link */
+            border: px solid rgb(120, 250, 211);
+            /* Border color */
+            border-radius: 5px;
+            /* Rounded corners */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            /* Smooth transitions */
+        }
+
+        /* Hover effect */
+        #contactLink:hover {
+            background-color: rgb(120, 250, 211);
+            /* Background on hover */
+            color: black;
+            /* Text color on hover */
+        }
+
+        /* Visited links */
+        #contactLink:visited {
+            color: lightgreen;
+            /* Keep the same color after visiting */
+        }
+
+        /* Active state (when clicked) */
+        #contactLink:active {
+            background-color: darkgreen;
+            /* Background color during click */
+            color: white;
+            /* Text color during click */
+        }
+
+        /* Styles for the modal background */
+        .modal {
+            display: none;
+            position: fixed;
+            background-color: rgba(50, 50, 50, 0.8);
+            /* Semi-transparent dark gray */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Styles for the modal content box */
+        .modal-content {
+            background-color: #0c0c0c;
+            /* A slightly off-black background */
+            margin: 10% auto;
+            padding: 20px;
+            width: 50%;
+            color: rgb(120, 250, 211);
+            /* Ensures text is readable */
+            border-radius: 10px;
+            /* Adds rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Subtle shadow for depth */
+        }
+
+        /* Input and button styles for a unified look */
+        input,
+        textarea,
+        button {
+            display: block;
+            width: 90%;
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Close button hover effect */
+        button:hover {
+            background-color: #000000;
+            /* Darker shade for hover effect */
+            color: white;
+        }
+
+        .custom-link {
+            color: rgb(120, 250, 211);
+            /* Replace with your desired color */
+            text-decoration: none;
+            /* Optional: removes underline */
+        }
+
+        .custom-link:hover {
+            color: rgb(120, 250, 211);
+            /* Optional: changes color on hover */
+        }
+
+        button[type="button"] {
+            color: black;
+            /* Text color for the Close button */
+        }
+
+        button[type="submit"] {
+            color: black;
+            /* Text color for the Submit button */
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="backgroundCanvas"></canvas>
+    <header>
+        <h1>My Resume</h1>
+        <nav>
+            <ul>
+                <li><a href="#Summary">Summary</a></li>
+                <li><a href="#Education">Education</a></li>
+                <li><a href="#Skills">Skills</a></li>
+                <li><a href="#Contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div id="content">
+        <h2>Welcome!</h2>
+        <img src="Luisru.jpg" alt="Profile Picture" width="200" height="200">
+        <h3>Luis Gonzalez Pagan </h3>
+        <p>Versatile Full-Stack Engineer with expertise in designing and developing scalable web applications.
+            Proficient in front-end technologies like HTML, CSS, and JavaScript, combined with back-end skills in
+            frameworks such as Node.js and Python. Skilled in database management, API integrations, and deploying
+            robust solutions that align with client needs. Adept at bridging the gap between design and functionality to
+            deliver seamless user experiences. A dynamic professional who thrives in fast-paced environments,
+            continuously driving innovation and efficiency in software development.</p>
+    </div>
+    <section id="Summary">
+        <h2>Summary</h2>
+        <p>Experienced Full-Stack Engineer with years of expertise in designing, developing, and deploying scalable
+            web applications. Proficient in front-end technologies like HTML, CSS, JavaScript, and modern frameworks
+            (React, Angular) combined with strong back-end knowledge in Node.js, Python, or PHP. Demonstrates extensive
+            expertise in database management, API integration, and cloud-based deployment. Adept at delivering seamless
+            user experiences and maintaining high-quality code standards while collaborating in dynamic,
+            cross-functional teams to meet business goals.</p>
+    </section>
+    <section id="Education">
+        <h2>Education</h2>
+        <nav>
+            <ul>
+                <li>Associate Degree - IBC</li>
+                <li>Full Stack Developer</li>
+                <li>Certified Java Programmer</li>
+                <li>Certified Python Programmer</li>
+                <li>Data Analytics</li>
+                <li>Project Management</li>
+                <li>Business Productivity</li>
+            </ul>
+        </nav>
+    </section>
+    <section id="Skills">
+        <h2>Skills</h2>
+        <nav>
+            <ul>
+                <li>Html, CSS, JavaScript</li>
+                <li>Front-end Frameworks</li>
+                <li>Back-end Programming</li>
+                <li>Database and SQL</li>
+                <li>Version Control (Git)</li>
+                <li>API Integation</li>
+                <li>Deployment and DevOps</li>
+            </ul>
+    </section>
+    <section id="contactLink">
+        <h2>Information?</h2>
+        <a href="#" onclick="document.getElementById('contactModal').style.display='block'">Contact Me</a>
+        <div id="contactModal" class="modal">
+            <div class="modal-content">
+                <form action="https://luisru42.github.io/html-portfolio/#/send-email" method="post">
+                    <label for="name">Name:</label><br>
+                    <input type="text" id="name" name="name" required><br>
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="email" name="email" required><br>
+                    <label for="message">Message:</label><br>
+                    <textarea id="message" name="message" required></textarea><br>
+                    <button type="button" class="close-btn" onclick="document.getElementById('contactModal').style.display='none'">Close</button>
+                    <button type="submit" class="submit-btn">Submit</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>
+            © 2025 <a href="https://buildwithru.com" target="_blank" rel="noopener"
+                class="custom-link">BuildWithRu.com</a>. All rights reserved.
+        </p>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('backgroundCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const particleCount = 100;
+        let mouse = { x: null, y: null };
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.onresize = function () {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initParticles();
+        };
+
+        window.onmousemove = function (event) {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        };
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.vx = Math.random() * 2 - 1;
+                this.vy = Math.random() * 2 - 1;
+                this.radius = 2;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+                if (mouse.x && mouse.y) {
+                    const dx = this.x - mouse.x;
+                    const dy = this.y - mouse.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 100) {
+                        this.x -= dx / 10;
+                        this.y -= dy / 10;
+                    }
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#fff';
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
+            }
+        }
+
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            connectParticles();
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+    </script>
+</body>
+
+</html>
