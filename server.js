@@ -55,11 +55,16 @@ app.post('/send-email', (req, res) => {
 
     // Email content
     const mailOptions = {
-        from: email, // Sender's email (from the form)
+        from: `"${name} via Your Website" <${process.env.EMAIL_USER}>`, // Makes it clear who the email is from
         to: process.env.EMAIL_USER, // Your email (receiver)
-        subject: `Message from ${name}`,
-        text: message,
-    };
+        replyTo: email, // The person's email for replying directly
+        subject: `New Message from ${name} (${email})`, // Includes their email in the subject
+        text: `You have received a new message from your website contact form.\n\n` +
+              `Name: ${name}\n` +
+              `Email: ${email}\n` +
+              `Message:\n${message}`,
+    };    
+    
 
     // Send the email
     transporter.sendMail(mailOptions, (error, info) => {
