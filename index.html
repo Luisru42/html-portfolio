@@ -17,6 +17,14 @@
             color: white;
         }
 
+        #message-container {
+            display: none;
+        }
+
+        #message-container {
+            display: none;
+        }
+
         canvas {
             position: fixed;
             top: 0;
@@ -272,20 +280,21 @@
         <a href="#" onclick="document.getElementById('contactModal').style.display='block'">Contact Me</a>
         <div id="contactModal" class="modal">
             <div class="modal-content">
-                <form action="https://html-portfolio-1-2a6o.onrender.com/send-email" method="post">
+                <form id="contact-form" action="https://html-portfolio-1-2a6o.onrender.com/send-email" method="post">
                     <label for="name">Name:</label><br>
                     <input type="text" id="name" name="name" required><br>
                     <label for="email">Email:</label><br>
                     <input type="email" id="email" name="email" required><br>
                     <label for="message">Message:</label><br>
-                    <textarea id="message" name="message" required></textarea><br>
-                    <button type="button" class="close-btn" onclick="document.getElementById('contactModal').style.display='none'">Close</button>
+                    <div id="message-container"></div>
+                    <button type="button" class="close-btn"
+                        onclick="document.getElementById('contactModal').style.display='none'">Close</button>
                     <button type="submit" class="submit-btn">Submit</button>
                 </form>
             </div>
         </div>
     </section>
-    
+
 
     <footer>
         <p>

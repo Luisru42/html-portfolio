@@ -30,7 +30,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
- // Use CORS with defined options
+// Use CORS with defined options
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded data
 app.use(bodyParser.json()); // Parse JSON data (optional, useful for testing APIs)
 
@@ -63,11 +63,11 @@ app.post('/send-email', (req, res) => {
         replyTo: email, // The person's email for replying directly
         subject: `New Message from ${name} (${email})`, // Includes their email in the subject
         text: `You have received a new message from your website contact form.\n\n` +
-              `Name: ${name}\n` +
-              `Email: ${email}\n` +
-              `Message:\n${message}`,
-    };    
-    
+            `Name: ${name}\n` +
+            `Email: ${email}\n` +
+            `Message:\n${message}`,
+    };
+
 
     // Send the email
     transporter.sendMail(mailOptions, (error, info) => {
@@ -86,3 +86,39 @@ const port = process.env.PORT || defaultPort; // Use Render's provided port or 3
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+document.getElementById("contact-form").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const formData = new FormData(this); // Collect the form data
+
+    fetch("https://html-portfolio-1-2a6o.onrender.com/send-email", { // Update with your backend URL
+        method: "POST",
+        body: formData,
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.text(); // Expecting text response from server
+            } else {
+                throw new Error("Something went wrong.");
+            }
+        })
+        .then(message => {
+            displayMessage(message, "success"); // Show success message
+        })
+        .catch(error => {
+            displayMessage(error.message, "error"); // Show error message
+        });
+});
+
+function displayMessage(message, type) {
+    const messageContainer = document.getElementById("message-container");
+    messageContainer.style.display = "block";
+    messageContainer.style.color = type === "success" ? "green" : "red";
+    messageContainer.textContent = message;
+
+    // Optionally hide the message after 5 seconds
+    setTimeout(() => {
+        messageContainer.style.display = "none";
+    }, 5000);
+}
+
