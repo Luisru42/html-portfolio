@@ -15,9 +15,10 @@ app.get('/', (req, res) => {
 // Define allowed origins for CORS
 const allowedOrigins = [
     'https://luisru42.github.io/html-portfolio/', // Your GitHub Pages URL
-    'https://html-portfolio-1-2a6o.onrender.com' // Your Render backend URL
+    'https://html-portfolio-1-2a6o.onrender.com'  // Your Render backend URL
 ];
 
+// Define CORS options with enhanced error handling
 const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.includes(origin)) {
@@ -29,8 +30,10 @@ const corsOptions = {
     },
 };
 
+// Use CORS with the defined options
 app.use(cors(corsOptions));
- // Use CORS with defined options
+
+// Middleware for parsing form data
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded data
 app.use(bodyParser.json()); // Parse JSON data (optional, useful for testing APIs)
 
@@ -67,7 +70,6 @@ app.post('/send-email', (req, res) => {
               `Email: ${email}\n` +
               `Message:\n${message}`,
     };    
-    
 
     // Send the email
     transporter.sendMail(mailOptions, (error, info) => {
