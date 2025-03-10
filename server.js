@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 
 // Define allowed origins for CORS
 const allowedOrigins = [
-    'https://luisru42.github.io', // Your GitHub Pages URL
+    'https://luisru42.github.io/html-portfolio/', // Your GitHub Pages URL
     'https://html-portfolio-1-2a6o.onrender.com' // Your Render backend URL
 ];
 const corsOptions = {
