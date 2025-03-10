@@ -14,20 +14,23 @@ app.get('/', (req, res) => {
 
 // Define allowed origins for CORS
 const allowedOrigins = [
-    'https://luisru42.github.io/html-portfolio/', // Your GitHub Pages URL
+    'https://luisru42.github.io', // Your GitHub Pages URL
     'https://html-portfolio-1-2a6o.onrender.com' // Your Render backend URL
 ];
+
 const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true); // Allow requests from allowed origins
         } else {
+            console.error('Not allowed by CORS:', origin); // Log the blocked origin
             callback(new Error('Not allowed by CORS'));
         }
     },
 };
 
-app.use(cors(corsOptions)); // Use CORS with defined options
+app.use(cors(corsOptions));
+ // Use CORS with defined options
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded data
 app.use(bodyParser.json()); // Parse JSON data (optional, useful for testing APIs)
 
